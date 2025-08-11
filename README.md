@@ -1,15 +1,15 @@
 # One chart to rule them all
 
-A generic Helm chart for your application deployments.
+Fork of a generic Helm chart for your application deployments.
 
 Because no-one can remember the Kubernetes yaml syntax.
 
-https://gimlet.io/docs/reference/onechart-reference
-
+[https://gimlet.io/docs/reference/onechart-reference](/)
 
 ## Getting started
 
-OneChart is a generic Helm Chart for web applications. The idea is that most Kubernetes manifest look alike, only very few parts actually change.
+OneChart is a generic Helm Chart for web applications.
+The idea is that most Kubernetes manifest look alike, only very few parts actually change.
 
 Add the Onechart Helm repository:
 
@@ -25,7 +25,8 @@ helm template my-release onechart/onechart \
   --set image.tag=1.19.3
 ```
 
-The example below deploys your application image, sets environment variables and configures the Kubernetes Ingress domain name:
+The example below deploys your application image, sets environment variables
+and configures the Kubernetes Ingress domain name:
 
 ```bash
 helm repo add onechart https://chart.onechart.dev
@@ -45,6 +46,7 @@ ingress:
 ```
 
 ### Alternative: using an OCI repository
+
 You can also template and install onechart from an OCI repository as follows:
 
 Check the generated Kubernetes yaml:
@@ -77,7 +79,9 @@ If you are running a fork of OneChart and would like to upstream a feature, plea
 
 ### New Features
 
-If you are planning to add a new feature to OneChart, please open an issue for it first. Helm charts are prone to having too many features, and OneChart want to keep the supported use-cases in-check. Proposed features have to be generally applicable, targeting newcomers to the Kubernetes ecosystem.
+If you are planning to add a new feature to OneChart, please open an issue for it first.
+Helm charts are prone to having too many features, and OneChart want to keep the supported use-cases in-check.
+Proposed features have to be generally applicable, targeting newcomers to the Kubernetes ecosystem.
 
 ### Pull Request Process
 
@@ -94,7 +98,8 @@ The source for OneChart is under `charts/onechart` where you can locate the `Cha
 
 We write unit tests for our helm charts. Pull requests are only accepted with proper test coverage.
 
-The tests are located under `charts/onechart/test` and use the https://github.com/helm-unittest/helm-unittest Helm plugin to run the tests.
+The tests are located under `charts/onechart/test` and
+use the [https://github.com/helm-unittest/helm-unittest](/) Helm plugin to run the tests.
 
 For installation, refer to the CI workflow at `.github/workflows/build.yaml`.
 
@@ -102,6 +107,6 @@ For installation, refer to the CI workflow at `.github/workflows/build.yaml`.
 
 `make all` to test and package the Helm chart.
 The chart archives are put under `docs/` together with the Helm repository manifest (index.yaml)
-It is then served with Github Pages on https://chart.onechart.dev
+It is then served with Github Pages on [https://chart.onechart.dev](/)
 
 Github Actions is used to automate the make calls on git tag events.
