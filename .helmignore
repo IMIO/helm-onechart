@@ -21,3 +21,8 @@
 .idea/
 *.tmproj
 .vscode/
+
+Flake.*
+.envrc
+.direnv/
+.pre-commit*

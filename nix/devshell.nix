@@ -5,10 +5,17 @@
     { config, pkgs, ... }:
     {
       devshells.default = {
-        packages = [
-          pkgs.git
-          pkgs.kubernetes-helm
-          pkgs.gnumake
+        packages = with pkgs; [
+          helm
+          kubeval
+          (wrapHelm kubernetes-helm {
+            plugins = with kubernetes-helmPlugins; [
+              helm-unittest
+            ];
+          })
+          nil
+          statix
+          yamllint
         ];
         devshell.startup.pre-commit.text = config.pre-commit.installationScript;
         commands = [
@@ -20,8 +27,8 @@
           }
           {
             name = "check";
-            help = "Run all checks";
-            command = "nix flake -L check -v";
+            help = "Run all helm checks";
+            command = "helm unittest .";
             category = "check";
           }
           {

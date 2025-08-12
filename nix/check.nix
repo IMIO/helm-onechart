@@ -24,6 +24,7 @@
         };
         settings = {
           markdownlint.config = {
+            exclude = "README.md";
             MD013 = {
               line_length = 120;
             };
