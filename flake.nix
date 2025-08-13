@@ -11,16 +11,6 @@
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pre-commit-nix = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     flake-linter = {
       url = "github:mic92/flake-linter";
       inputs.flake-parts.follows = "flake-parts";
@@ -43,9 +33,7 @@
       {
         systems = [ "x86_64-linux" ];
         imports = [
-          ./nix/check.nix
           ./nix/devshell.nix
-          ./nix/fmt.nix
           ./nix/nixpkgs.nix
           ./nix/packages.nix
         ];
