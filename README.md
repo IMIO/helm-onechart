@@ -8,7 +8,7 @@ Because no-one, espacially us, can remember the Kubernetes yaml syntax.
 
 ## Introduction
 
-This [Helm](https://helm.sh/) chart installs `Odoo` in a [Kubernetes](https://kubernetes.io/) cluster.
+This [Helm](https://helm.sh/) chart provides a DRY way to deploy applications in a [Kubernetes](https://kubernetes.io/) cluster.
 
 > [!IMPORTANT]
 > This helm chart is designed for @IMIO specific needs and is not intended to resolve all use cases.
