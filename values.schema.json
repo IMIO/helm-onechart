@@ -1179,6 +1179,17 @@
             "description": "How often to refresh the secret from the external source",
             "default": "1h"
           },
+          "path": {
+            "type": "string",
+            "title": "Path",
+            "description": "The mount path inside the container",
+            "default": "/data"
+          },
+          "subPath": {
+            "type": "string",
+            "title": "SubPath",
+            "description": "Mount a single file from the secret"
+          },
           "secretStore": {
             "type": "object",
             "title": "Secret Store Reference",

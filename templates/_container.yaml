@@ -2,7 +2,9 @@
 name: {{ template "robustName" .Release.Name }}
 securityContext:
   {{- toYaml .Values.securityContext | nindent 2 }}
-image: "{{ tpl .Values.image.repository $ }}:{{ tpl .Values.image.tag $ | default .Chart.AppVersion }}"
+{{- $repository := .Values.image.repository | default "nginx" }}
+{{- $tag := .Values.image.tag | default .Chart.AppVersion | default "latest" }}
+image: "{{ tpl $repository $ }}:{{ tpl $tag $ }}"
 imagePullPolicy: {{ .Values.image.pullPolicy }}
 {{- if .Values.command }}
 command:
