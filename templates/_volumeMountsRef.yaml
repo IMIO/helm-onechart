@@ -1,5 +1,5 @@
 {{- define "volumeMountsRef.tpl" -}}
-{{- if or (or (or (.Values.volumes) (.Values.sealedFileSecrets)) .Values.fileSecrets) .Values.existingFileSecrets -}}
+{{- if or (or (or (or (.Values.volumes) (.Values.sealedFileSecrets)) .Values.fileSecrets) .Values.existingFileSecrets) .Values.externalSecrets -}}
 volumeMounts:
 {{- range .Values.volumes }}
 {{- if not (hasPrefix "init-" .name) }}
@@ -9,6 +9,14 @@ volumeMounts:
     subPath: {{ .subPath }}
     {{- end }}
 {{- end }}
+{{- end }}
+{{- range $key, $value := .Values.externalSecrets }}
+  - name: external-secret-{{ $key }}
+    mountPath: {{ $value.path }}
+    {{- if $value.subPath}}
+    subPath: {{ $value.subPath }}
+    {{- end }}
+    readOnly: true
 {{- end }}
 {{- range .Values.sealedFileSecrets }}
   - name: {{ .name }}
