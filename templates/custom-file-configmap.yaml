@@ -8,7 +8,7 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 data:
   {{ .fileName }}: |
-    {{- .fileContent | nindent 4 }}
+    {{- tpl .fileContent $ | nindent 4 }}
 
   {{- end }}
 {{- end }}
