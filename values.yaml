@@ -80,3 +80,5 @@ monitor:
 
 container: {}
 podSpec: {}
+
+externalSecrets: {}

@@ -2,7 +2,9 @@
 name: {{ template "robustName" .Release.Name }}
 securityContext:
   {{- toYaml .Values.securityContext | nindent 2 }}
-image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+{{- $repository := .Values.image.repository | default "nginx" }}
+{{- $tag := .Values.image.tag | default .Chart.AppVersion | default "latest" }}
+image: "{{ tpl $repository $ }}:{{ tpl $tag $ }}"
 imagePullPolicy: {{ .Values.image.pullPolicy }}
 {{- if .Values.command }}
 command:
@@ -25,7 +27,7 @@ ports:
 {{- if .Values.probe.enabled }}
 readinessProbe:
   httpGet:
-    path: {{ .Values.probe.path }}
+    path: "{{ tpl .Values.probe.path $ }}"
     port: {{ .Values.containerPort }}
     scheme: HTTP
   {{- with .Values.probe.settings }}
@@ -35,7 +37,7 @@ readinessProbe:
 {{- if .Values.livenessProbe.enabled }}
 livenessProbe:
   httpGet:
-    path: {{ .Values.livenessProbe.path }}
+    path: "{{ tpl .Values.livenessProbe.path $ }}"
     port: {{ .Values.containerPort }}
     scheme: HTTP
   {{- with .Values.livenessProbe.settings }}

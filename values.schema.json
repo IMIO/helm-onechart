@@ -1157,6 +1157,271 @@
           }
         ]
       }
+    },
+    "externalSecrets": {
+      "$id": "#/properties/externalSecrets",
+      "title": "External Secrets",
+      "description": "Configuration for External Secrets Operator to fetch secrets from external secret management systems (e.g., HashiCorp Vault). Can be an object (map) or an array.",
+      "oneOf": [
+        {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "object",
+            "title": "External Secret",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name",
+                "description": "The name of the ExternalSecret resource"
+              },
+              "refreshInterval": {
+                "type": "string",
+                "title": "Refresh Interval",
+                "description": "How often to refresh the secret from the external source",
+                "default": "1h"
+              },
+              "path": {
+                "type": "string",
+                "title": "Path",
+                "description": "The mount path inside the container",
+                "default": "/data"
+              },
+              "subPath": {
+                "type": "string",
+                "title": "SubPath",
+                "description": "Mount a single file from the secret"
+              },
+              "secretStore": {
+                "type": "object",
+                "title": "Secret Store Reference",
+                "description": "Reference to the SecretStore or ClusterSecretStore",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Name",
+                    "description": "The name of the SecretStore",
+                    "default": "vault-backend"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "title": "Kind",
+                    "description": "The kind of secret store (SecretStore or ClusterSecretStore)",
+                    "default": "SecretStore",
+                    "enum": ["SecretStore", "ClusterSecretStore"]
+                  }
+                }
+              },
+              "target": {
+                "type": "object",
+                "title": "Target",
+                "description": "The target Kubernetes secret configuration",
+                "required": ["template"],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Name",
+                    "description": "The name of the Kubernetes secret to create"
+                  },
+                  "creationPolicy": {
+                    "type": "string",
+                    "title": "Creation Policy",
+                    "description": "Policy for secret creation",
+                    "default": "Owner",
+                    "enum": ["Owner", "Orphan", "Merge", "None"]
+                  },
+                  "template": {
+                    "type": "object",
+                    "title": "Template",
+                    "description": "Template for the secret",
+                    "required": ["data"],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "title": "Type",
+                        "description": "The type of Kubernetes secret",
+                        "default": "Opaque"
+                      },
+                      "data": {
+                        "type": "object",
+                        "title": "Data",
+                        "description": "Key-value pairs for the secret data template",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "data": {
+                "type": "array",
+                "title": "Data",
+                "description": "Array of secret key mappings to remote references",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "secretKey": {
+                      "type": "string",
+                      "title": "Secret Key",
+                      "description": "The key name in the resulting Kubernetes secret"
+                    },
+                    "remoteRef": {
+                      "type": "object",
+                      "title": "Remote Reference",
+                      "description": "Reference to the secret in the external secret store",
+                      "required": ["key", "property"],
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "title": "Key",
+                          "description": "The path/key in the external secret store"
+                        },
+                        "property": {
+                          "type": "string",
+                          "title": "Property",
+                          "description": "The property name within the secret"
+                        }
+                      }
+                    }
+                  },
+                  "required": ["secretKey", "remoteRef"]
+                }
+              }
+            },
+            "required": ["target", "data"]
+          }
+        },
+        {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object",
+            "title": "External Secret",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name",
+                "description": "The name of the ExternalSecret resource"
+              },
+              "refreshInterval": {
+                "type": "string",
+                "title": "Refresh Interval",
+                "description": "How often to refresh the secret from the external source",
+                "default": "1h"
+              },
+              "path": {
+                "type": "string",
+                "title": "Path",
+                "description": "The mount path inside the container",
+                "default": "/data"
+              },
+              "subPath": {
+                "type": "string",
+                "title": "SubPath",
+                "description": "Mount a single file from the secret"
+              },
+              "secretStore": {
+                "type": "object",
+                "title": "Secret Store Reference",
+                "description": "Reference to the SecretStore or ClusterSecretStore",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Name",
+                    "description": "The name of the SecretStore",
+                    "default": "vault-backend"
+                  },
+                  "kind": {
+                    "type": "string",
+                    "title": "Kind",
+                    "description": "The kind of secret store (SecretStore or ClusterSecretStore)",
+                    "default": "SecretStore",
+                    "enum": ["SecretStore", "ClusterSecretStore"]
+                  }
+                }
+              },
+              "target": {
+                "type": "object",
+                "title": "Target",
+                "description": "The target Kubernetes secret configuration",
+                "required": ["template"],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "title": "Name",
+                    "description": "The name of the Kubernetes secret to create"
+                  },
+                  "creationPolicy": {
+                    "type": "string",
+                    "title": "Creation Policy",
+                    "description": "Policy for secret creation",
+                    "default": "Owner",
+                    "enum": ["Owner", "Orphan", "Merge", "None"]
+                  },
+                  "template": {
+                    "type": "object",
+                    "title": "Template",
+                    "description": "Template for the secret",
+                    "required": ["data"],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "title": "Type",
+                        "description": "The type of Kubernetes secret",
+                        "default": "Opaque"
+                      },
+                      "data": {
+                        "type": "object",
+                        "title": "Data",
+                        "description": "Key-value pairs for the secret data template",
+                        "additionalProperties": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "data": {
+                "type": "array",
+                "title": "Data",
+                "description": "Array of secret key mappings to remote references",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "secretKey": {
+                      "type": "string",
+                      "title": "Secret Key",
+                      "description": "The key name in the resulting Kubernetes secret"
+                    },
+                    "remoteRef": {
+                      "type": "object",
+                      "title": "Remote Reference",
+                      "description": "Reference to the secret in the external secret store",
+                      "required": ["key", "property"],
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "title": "Key",
+                          "description": "The path/key in the external secret store"
+                        },
+                        "property": {
+                          "type": "string",
+                          "title": "Property",
+                          "description": "The property name within the secret"
+                        }
+                      }
+                    }
+                  },
+                  "required": ["secretKey", "remoteRef"]
+                }
+              }
+            },
+            "required": ["target", "data"]
+          }
+        }
+      ]
     }
   },
   "additionalProperties": true
