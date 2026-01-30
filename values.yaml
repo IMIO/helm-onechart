@@ -3,18 +3,18 @@ image:
   tag: "latest"
   pullPolicy: IfNotPresent
 
-# ingress:
-#   host: chart-example.local
-#   ingressClassName: nginx
-#   tlsEnabled: true
-#   annotations:
-#     cert-manager.io/cluster-issuer: letsencrypt-staging
-#   nginxBasicAuth:
-#     user: admin
-#     password: secret
+ingress:
+  host: chart-example.local
+  ingressClassName: nginx
+  tlsEnabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+  nginxBasicAuth:
+    user: admin
+    password: secret
 
-# vars:
-#   MY_VAR: "value"
+vars:
+  MY_VAR: "value"
 
 replicas: 1
 
@@ -66,6 +66,7 @@ livenessProbe:
     failureThreshold: 3
 
 secretEnabled: false
+secretName: my-secret
 
 shell: "/bin/sh"
 
