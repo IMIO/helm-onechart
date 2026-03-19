@@ -20,7 +20,7 @@ This [Helm](https://helm.sh/) chart provides a DRY way to deploy applications in
 OneChart is a generic Helm Chart for web applications.
 The idea is that most Kubernetes manifest look alike, only very few parts actually change.
 
-### Pull Helm release
+### Pull Helm release .
 
 ```bash
 helm repo add imio https://imio.github.io/helm-charts

@@ -19,7 +19,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Helm Release
-        uses: IMIO/gha/helm-release-notify@v4
+        uses: IMIO/gha/helm-release-notify@harden_security
         with:
           TARGET_DIR: onechart
           MATTERMOST_WEBHOOK_URL: ${{ secrets.COMMON_MATTERMOST_WEBHOOK_URL }}
